@@ -69,25 +69,30 @@ class MoviePicker extends Component {
     const year = parseInt(date);
 
       return(
-        <div 
+        
+        <option
         key={id}>
           { title } ({year})
-        </div>
+        </option> 
       )
     })
     return resultsHtml;
   }
   render() {
     return (
-      <div>
+      <div className="moviePicker">
+        <div className="moviePoster">
+          
+        </div>
         <input
           placeholder="Pick a movie"
           type="text"
+          list="movieAutocomplete"
           onChange={ this.changeQuery }
         /> 
-        <div className="movieAutoResults">
-          { this.state.results.length ? this.renderSearchResults() : "Loading.." }
-        </div> 
+        <datalist className="movieAutocomplete" id="movieAutocomplete">
+          { this.renderSearchResults() }
+        </datalist> 
       </div>
     )
   }
