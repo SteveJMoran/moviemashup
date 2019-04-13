@@ -7,11 +7,15 @@ import MoviePicker from './components/MoviePicker';
 class App extends Component {
   render() {
     return (
-      <div class="container">
+      <div className="container">
         <Header />
         <div className="pickerContainer">
-          <MoviePicker />
-          <MoviePicker />
+          <MoviePicker
+          id={1}
+           />
+          <MoviePicker
+          id={2} 
+          />
         </div>
       </div>
     );

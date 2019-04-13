@@ -7,6 +7,7 @@ const API_TOKEN = process.env.REACT_APP_API_KEY
 class MoviePicker extends Component {
   constructor(props) {
     super(props);
+    this.id = "autocomplete-"+props.id
     this.state = { q: "", results: []};
     this.autocompleteSearchDebounced = debounce(300, this.autocompleteSearch);
     this.autocompleteSearchThrottled = throttle(300, this.autocompleteSearch);
@@ -81,16 +82,14 @@ class MoviePicker extends Component {
   render() {
     return (
       <div className="moviePicker">
-        <div className="moviePoster">
-          
-        </div>
+        <div className="moviePoster"></div>
         <input
           placeholder="Pick a movie"
           type="text"
-          list="movieAutocomplete"
+          list={this.id}
           onChange={ this.changeQuery }
         /> 
-        <datalist className="movieAutocomplete" id="movieAutocomplete">
+        <datalist className="movieAutocomplete" id={ this.id }>
           { this.renderSearchResults() }
         </datalist> 
       </div>
