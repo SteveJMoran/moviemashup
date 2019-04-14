@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { throttle, debounce } from 'throttle-debounce';
-
-const API_TOKEN = process.env.REACT_APP_API_KEY
+import config from '../constants';
 
 class MoviePicker extends Component {
   constructor(props) {
@@ -44,7 +43,7 @@ class MoviePicker extends Component {
       const qUrl = "https://api.themoviedb.org/3/search/movie";
       const qParams = {
         crossDomain: true,
-        api_key: API_TOKEN,
+        api_key: config.API_TOKEN,
         query: q,
         page: 1,
         include_adult: false
