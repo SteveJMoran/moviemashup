@@ -7,12 +7,16 @@ h1 {
 }
 .moviePicker {
   width: 50%;
+  text-align: center;
 }
-.pickerContainer {
+.container {
   display: flex;
 }
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 30px;
+}
+.moviePicker input {
+  font-size: 22px;
 }

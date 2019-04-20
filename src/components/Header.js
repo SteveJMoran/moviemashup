@@ -4,7 +4,7 @@ class Header extends Component {
   render() {
     return(
     <header>
-      <h1>Movie Match</h1>
+      <h1 style={{display:'none'}}>Movie Match</h1>
     </header>
     )
   }

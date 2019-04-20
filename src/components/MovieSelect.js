@@ -3,18 +3,26 @@ import axios from 'axios';
 import { throttle, debounce } from 'throttle-debounce';
 import config from '../constants';
 
-class MoviePicker extends Component {
+
+class MovieSelect extends Component {
   constructor(props) {
     super(props);
-    this.id = "autocomplete-"+props.id
-    this.state = { q: "", results: []};
+
+    this.autoCompleteid = "autocomplete-"+props.id
+
     this.autocompleteSearchDebounced = debounce(300, this.autocompleteSearch);
     this.autocompleteSearchThrottled = throttle(300, this.autocompleteSearch);
-  }
 
+    this.state = { 
+      q: null,
+      selected: null,
+      results:[]
+    };
+
+  }
   changeQuery = event => {
     this.setState(
-      {q: event.target.value},
+      { q: event.target.value },
       () => {
         const q = this.state.q;
         if(q.length < 5) {
@@ -25,22 +33,24 @@ class MoviePicker extends Component {
       }
     )
   }
-
-  autocompleteSearch = q => {
-    this.fetch(q);
+  matchedMovies(matched) {
+    // pick selected movie
+    console.log(this.state.results);
   }
-
-  fetch = q => {
+  autocompleteSearch = q => {
+    this.fetchMatches(q);
+  }
+  fetchMatches = q => {
     const _searches = this.state._searches || [];
     _searches.push(q);
     this.setState({_searches});
 
-    this.searchMovies(q);
+    this.fetchMovies(q);
   }
-  async searchMovies (q) {
+  async fetchMovies (q) {
+    console.log(q)
     try {
-
-      const qUrl = "https://api.themoviedb.org/3/search/movie";
+      const qUrl = `${config.API_URL}/search/movie`;
       const qParams = {
         crossDomain: true,
         api_key: config.API_TOKEN,
@@ -68,8 +78,7 @@ class MoviePicker extends Component {
       } = result;
     const year = parseInt(date);
 
-      return(
-        
+      return (
         <option
         key={id}>
           { title } ({year})
@@ -85,16 +94,15 @@ class MoviePicker extends Component {
         <input
           placeholder="Pick a movie"
           type="text"
-          list={this.id}
+          list={this.autoCompleteid }
           onChange={ this.changeQuery }
         /> 
-        <datalist className="movieAutocomplete" id={ this.id }>
-          { this.renderSearchResults() }
+        <datalist className="movieAutocomplete" id={ this.autoCompleteid }>
+        { this.renderSearchResults() }
         </datalist> 
       </div>
     )
   }
-
 }
 
-export default MoviePicker;
+export default MovieSelect;
