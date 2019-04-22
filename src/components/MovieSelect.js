@@ -37,6 +37,28 @@ class MovieSelect extends Component {
     // pick selected movie
     console.log(this.state.results);
   }
+  handleSelect(event) {
+
+    const input = event.target
+    const list = input.getAttribute('list')
+    const options = document.querySelectorAll('#' + list + ' option')
+    //const hiddenInput = document.getElementById(input.id + '-hidden')
+    const inputValue = input.value;
+
+    //hiddenInput.value = inputValue;
+    // options.map(option => {
+    //   return 
+    // })
+    for(var i = 0; i < options.length; i++) {
+        var option = options[i];
+
+        if(option.innerText === inputValue) {
+            const selectedId = option.getAttribute('data-value');
+            console.log(selectedId)
+            break;
+        }
+    }
+  }
   autocompleteSearch = q => {
     this.fetchMatches(q);
   }
@@ -76,13 +98,10 @@ class MovieSelect extends Component {
         title,
         release_date: date
       } = result;
-    const year = parseInt(date);
+      const year = parseInt(date);
 
       return (
-        <option
-        key={id}>
-          { title } ({year})
-        </option> 
+        <option key={id} data-value={id} value={`${title} (${year})`} /> 
       )
     })
     return resultsHtml;
@@ -96,6 +115,7 @@ class MovieSelect extends Component {
           type="text"
           list={this.autoCompleteid }
           onChange={ this.changeQuery }
+          onInput={ (event) => { this.handleSelect(event, 'movieSelect')} }
         /> 
         <datalist className="movieAutocomplete" id={ this.autoCompleteid }>
         { this.renderSearchResults() }
