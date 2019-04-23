@@ -21,6 +21,7 @@ class MovieSelect extends Component {
 
   }
   changeQuery = event => {
+    this.handleSelect(event)
     this.setState(
       { q: event.target.value },
       () => {
@@ -38,25 +39,26 @@ class MovieSelect extends Component {
     console.log(this.state.results);
   }
   handleSelect(event) {
-
     const input = event.target
-    const list = input.getAttribute('list')
-    const options = document.querySelectorAll('#' + list + ' option')
-    //const hiddenInput = document.getElementById(input.id + '-hidden')
     const inputValue = input.value;
+    const list = input.getAttribute('list')
+    let options = document.querySelectorAll('#' + list + ' option')
+    options = [...options]
+    let selectedId = null;
+    let matchedOption = null;
 
-    //hiddenInput.value = inputValue;
-    // options.map(option => {
-    //   return 
-    // })
-    for(var i = 0; i < options.length; i++) {
-        var option = options[i];
+    console.log(options);
 
-        if(option.innerText === inputValue) {
-            const selectedId = option.getAttribute('data-value');
-            console.log(selectedId)
-            break;
-        }
+    selectedId = options.filter(option => {
+      console.log(option.value + " " + inputValue)
+      if(option.value === inputValue){
+        matchedOption = option
+      }
+      return matchedOption
+    })
+    if(selectedId.length){
+      const movieId = selectedId[0].dataset.value
+      this.fetchSelectedMovie(movieId);
     }
   }
   autocompleteSearch = q => {
@@ -70,7 +72,7 @@ class MovieSelect extends Component {
     this.fetchMovies(q);
   }
   async fetchMovies (q) {
-    console.log(q)
+    //console.log(q)
     try {
       const qUrl = `${config.API_URL}/search/movie`;
       const qParams = {
@@ -89,6 +91,24 @@ class MovieSelect extends Component {
     } catch(e) {
       console.error(e.message)
     }
+  }
+  async fetchSelectedMovie(id){
+    try {
+      const qUrl = `${config.API_URL}/movie/${id}`;
+      const qParams = {
+        crossDomain: true,
+        api_key: config.API_TOKEN,
+        include_adult: false
+      }
+      const movieData = await axios.get(qUrl, {params: qParams})
+      const { data:movie } = movieData;
+      this.setState({selected: movie})
+    } catch(e) {
+      console.error(e.message)
+    }
+  }
+  renderSelectedMovie(){
+    //const { title } = this.state.selected;
   }
   renderSearchResults() {
     const { results } = this.state;
@@ -109,13 +129,14 @@ class MovieSelect extends Component {
   render() {
     return (
       <div className="moviePicker">
-        <div className="moviePoster"></div>
+        <div className="moviePoster">
+          {this.renderSelectedMovie()}
+        </div>
         <input
           placeholder="Pick a movie"
           type="text"
           list={this.autoCompleteid }
           onChange={ this.changeQuery }
-          onInput={ (event) => { this.handleSelect(event, 'movieSelect')} }
         /> 
         <datalist className="movieAutocomplete" id={ this.autoCompleteid }>
         { this.renderSearchResults() }

@@ -28,6 +28,9 @@ class MovieForm extends Component {
           setMovieChoice={ this.setMovieChoice }
           />
         </div>
+        <div className="container">
+          <button type="submit">Mashup!</button>
+        </div>
       </form>
     )
   }
