@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import appConfig from './constants.js';
 
-import './App.css';
+import './App.scss';
 
 import Header from './components/Header';
 import MovieForm from './components/MovieForm';
