@@ -1,8 +1,19 @@
 .moviePicker {
   text-align: center;
-  
+  height: 100%;
+
   input {
-    font-size: 22px;
+    max-width: 90%;
+    background-color: transparent;
+    color: #FFF;
+    border:none;
+    border-bottom: 2px solid #FFF;
+    font-size: 42px;
+    text-align: center;
+
+    &::placeholder {
+      color: #FFF;
+    }
   }
   .blank-poster {
     margin: 20px auto;
