@@ -47,10 +47,10 @@ class MovieSelect extends Component {
     let selectedId = null;
     let matchedOption = null;
 
-    console.log(options);
+    //console.log(options);
 
     selectedId = options.filter(option => {
-      console.log(option.value + " " + inputValue)
+      //console.log(option.value + " " + inputValue)
       if(option.value === inputValue){
         matchedOption = option
       }
@@ -58,7 +58,19 @@ class MovieSelect extends Component {
     })
     if(selectedId.length){
       const movieId = selectedId[0].dataset.value
-      this.fetchSelectedMovie(movieId);
+
+      this.fetchSelectedMovie(movieId)
+        .then(function(res){
+          console.log(res)
+          this.setState({selected: res})
+          this.props.setMovieChoice(res)
+        })
+
+      this.fetchRecomendations(movieId)
+        .then(function(res){
+          console.log(res)
+
+        })
     }
   }
   autocompleteSearch = q => {
@@ -72,7 +84,6 @@ class MovieSelect extends Component {
     this.fetchMovies(q);
   }
   async fetchMovies (q) {
-    //console.log(q)
     try {
       const qUrl = `${config.API_URL}/search/movie`;
       const qParams = {
@@ -94,21 +105,46 @@ class MovieSelect extends Component {
   }
   async fetchSelectedMovie(id){
     try {
-      const qUrl = `${config.API_URL}/movie/${id}`;
-      const qParams = {
+      const url = `${config.API_URL}/movie/${id}`;
+      const params = {
         crossDomain: true,
         api_key: config.API_TOKEN,
         include_adult: false
       }
-      const movieData = await axios.get(qUrl, {params: qParams})
+
+      const movieData = await axios.get(url, {params: params})
       const { data:movie } = movieData;
-      this.setState({selected: movie})
+      return movie;
+
     } catch(e) {
       console.error(e.message)
     }
   }
-  renderSelectedMovie(){
-    //const { title } = this.state.selected;
+  async fetchRecomendations(id) {
+    try {
+      const url = `${config.API_URL}/movie/${id}/recommendations`;
+      const params = {
+        crossDomain: true,
+        api_key: config.API_TOKEN,
+        include_adult: false
+      }
+      const recomendationData = await axios.get(url, {params: params})
+      const { data:recomendations } = recomendationData;
+      return recomendations;
+
+    } catch(e) {
+      console.error(e.message)
+    }
+  }
+  renderBlankPoster(){
+    return (<div className="blank-poster"></div>)
+  }
+  renderSelectedMoviePoster(){
+    const { title, poster_path } = this.state.selected;
+    const posterImage = config.getPosterUrl(poster_path);
+    return (
+      <img className="selected-poster" src={ posterImage } alt={ title } />
+    )
   }
   renderSearchResults() {
     const { results } = this.state;
@@ -130,7 +166,7 @@ class MovieSelect extends Component {
     return (
       <div className="moviePicker">
         <div className="moviePoster">
-          {this.renderSelectedMovie()}
+          { this.state.selected !== null ? this.renderSelectedMoviePoster() : this.renderBlankPoster() }
         </div>
         <input
           placeholder="Pick a movie"

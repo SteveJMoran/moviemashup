@@ -5,8 +5,8 @@ export const posterSizes = ["w92","w154","w185","w342","w500","w780","original"]
 export const posterUrl = 'http://image.tmdb.org/t/p/';
 
 function getPosterUrl(filename) {
-  let posterSize = "w500"
-  if(!posterSizes.includes('w500')){
+  let posterSize = "w185"
+  if(!posterSizes.includes('w185')){
     posterSize = "w780";
   }
   return `${posterUrl}${posterSize}/${filename}`;
