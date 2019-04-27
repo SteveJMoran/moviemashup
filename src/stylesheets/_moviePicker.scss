@@ -1,8 +1,12 @@
 .moviePicker {
+  position: relative;
   text-align: center;
   height: 100%;
-
+  overflow: hidden;
   input {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
     max-width: 90%;
     background-color: transparent;
     color: #FFF;

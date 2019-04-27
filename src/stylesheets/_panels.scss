@@ -4,8 +4,13 @@
   width: 100%; 
   padding: 5% 5% 2.5% 5%;
   box-sizing: border-box;
+  &.panel-half {
+    height: 50vh;
+  }
 }
+
 .container {
+
   background-color: $cream;
   height: 100%;
   width: 100%; 
@@ -22,9 +27,18 @@
   border-radius: 10px;
 
   &.container-red {
-    background-color: $red;
+    background-color: rgba($red, 0.9);
   }
   &.container-cyan {
-    background-color: $cyan;
+    background-color: rgba($cyan, 0.9);
+  }
+  .background {
+    opacity: 0.6;
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: 1;
   }
 }
