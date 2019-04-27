@@ -135,7 +135,7 @@ class MovieForm extends Component {
           <div className="container">
             { this.state.RecommendedMovie !== null ? this.renderRecommendation(): this.loadingRecommendation() }
             <div className="reset-container">
-              <button type="button" class="reset-button" onClick={ (event) => { this._reset(event)} }>Reset</button>
+              <button type="button" className="reset-button" onClick={ (event) => { this._reset(event)} }>Reset</button>
             </div>
           </div>
         </div>
