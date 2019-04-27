@@ -96,6 +96,8 @@ class MovieSelect extends Component {
 
         this.setState({results: movies})
       }
+
+
     } catch(e) {
       console.error(e.message)
     }
@@ -112,23 +114,37 @@ class MovieSelect extends Component {
       const movieData = await axios.get(url, {params: params})
       const { data:selected } = movieData;
       this.setState({ selected })
+      this.props.setMovieChoice(selected)
 
     } catch(e) {
       console.error(e.message)
     }
   }
-  async fetchRecomendations(id) {
+  async fetchRecomendations(id, page) {
     try {
       const url = `${config.API_URL}/movie/${id}/recommendations`;
+      page = page !== null ? page : 1;
       const params = {
         crossDomain: true,
         api_key: config.API_TOKEN,
+        page: 1,
         include_adult: false
       }
+      const params2 = {
+        crossDomain: true,
+        api_key: config.API_TOKEN,
+        page: 2,
+        include_adult: false
+      }
+      // get the first two pages of recommendations
       const recomendationData = await axios.get(url, {params: params})
-      const { data:recomendations } = recomendationData;
-      this.setState({ recomendations})
-
+      const recomendationData2 = await axios.get(url, {params: params2})
+      const { results:recomendations1 } = recomendationData.data;
+      const { results:recomendations2 } = recomendationData2.data;
+      const recomendations = [...recomendations1,...recomendations2];
+      this.setState({ recomendations })
+      this.props.setRecommendations(recomendations)
+  
     } catch(e) {
       console.error(e.message)
     }
@@ -163,7 +179,7 @@ class MovieSelect extends Component {
       <div className={this.props.containerClass }>
         <div className="background" style={ this.state.selected !== null ? this.renderBackground() : this.renderBlank() }></div>
         <input
-          placeholder="Pick a movie"
+          placeholder={ this.props.placeholder }
           type="text"
           list={this.autoCompleteid }
           onChange={ this.changeQuery }

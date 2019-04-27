@@ -6,7 +6,7 @@ class Header extends Component {
     <header className={this.props.containerClass }>
       <h1>Movie Mashup</h1>
       <p>Pick two movies and Movie Mashup will recomend a movie based on your selections!</p>
-      <button className="start-button" href={"#"}>Start</button>
+      <a className="start-button" href="#selectOne" onClick={ this.props.scrollToRef }>Start</a>
     </header>
     )
   }

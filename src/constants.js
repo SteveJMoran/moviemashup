@@ -9,7 +9,7 @@ function getPosterUrl(filename) {
   if(!posterSizes.includes('w780')){
     posterSize = "w780";
   }
-  return `${imgUrl}${posterSize}/${filename}`;
+  return `${imgUrl}${posterSize}${filename}`;
 } 
 function getBackdropUrl(filename) {
   let backgroundSize = "w1280"
