@@ -46,6 +46,23 @@
     margin: 0 auto;
   }
 }
+.reset-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+
+  .reset-button {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 18px;
+    line-height: 1;
+    background-color: transparent;
+    border:none;
+    color: rgba($black, 0.75);
+    cursor: pointer
+  }
+}
 
 @keyframes ellipsis {
   to {

@@ -14,10 +14,8 @@ class MovieSelect extends Component {
     this.autocompleteSearchThrottled = throttle(300, this.autocompleteSearch);
 
     this.state = { 
-      q: null,
-      selected: null,
-      recomendations:[],
-      results:[]
+      q: '',
+      results:[],
     };
     this.fetchSelectedMovie = this.fetchSelectedMovie.bind(this);
   }
@@ -34,12 +32,13 @@ class MovieSelect extends Component {
         }
       }
     )
+    if(event.target.value.length === 0){
+      this.setState({
+        selected: null
+      })
+    }
   }
-  matchedMovies(matched) {
-    // pick selected movie
-    console.log(this.state.results);
-  }
-  handleSelect(event) {
+  handleSelect = event => {
     const input = event.target
     const inputValue = input.value;
     const list = input.getAttribute('list')
@@ -48,10 +47,7 @@ class MovieSelect extends Component {
     let selectedId = null;
     let matchedOption = null;
 
-    //console.log(options);
-
     selectedId = options.filter(option => {
-      //console.log(option.value + " " + inputValue)
       if(option.value === inputValue){
         matchedOption = option
       }
@@ -96,8 +92,6 @@ class MovieSelect extends Component {
 
         this.setState({results: movies})
       }
-
-
     } catch(e) {
       console.error(e.message)
     }
@@ -113,7 +107,7 @@ class MovieSelect extends Component {
 
       const movieData = await axios.get(url, {params: params})
       const { data:selected } = movieData;
-      this.setState({ selected })
+      // this.setState({ selected })
       this.props.setMovieChoice(selected)
 
     } catch(e) {
@@ -137,12 +131,13 @@ class MovieSelect extends Component {
         include_adult: false
       }
       // get the first two pages of recommendations
+      // TODO Find a better way to get both
       const recomendationData = await axios.get(url, {params: params})
       const recomendationData2 = await axios.get(url, {params: params2})
       const { results:recomendations1 } = recomendationData.data;
       const { results:recomendations2 } = recomendationData2.data;
       const recomendations = [...recomendations1,...recomendations2];
-      this.setState({ recomendations })
+
       this.props.setRecommendations(recomendations)
   
     } catch(e) {
@@ -153,10 +148,9 @@ class MovieSelect extends Component {
     return ({'backgroundImage':'none'})
   }
   renderBackground(){
-    const {backdrop_path } = this.state.selected;
+    const { backdrop_path } = this.props.selectedMovie;
     const backgroundImage = config.getBackdropUrl(backdrop_path);
-    console.log(backgroundImage);
-    return ({'backgroundImage': `url(${backgroundImage})`})
+    return ( {'backgroundImage': `url(${backgroundImage})`} )
   }
   renderSearchResults() {
     const { results } = this.state;
@@ -177,12 +171,13 @@ class MovieSelect extends Component {
   render() {
     return (
       <div className={this.props.containerClass }>
-        <div className="background" style={ this.state.selected !== null ? this.renderBackground() : this.renderBlank() }></div>
+        <div className="background" style={ this.props.selectedMovie !== null ? this.renderBackground() : this.renderBlank() }></div>
         <input
           placeholder={ this.props.placeholder }
           type="text"
           list={this.autoCompleteid }
           onChange={ this.changeQuery }
+          value={ this.state.q }
         /> 
         <datalist className="movieAutocomplete" id={ this.autoCompleteid }>
         { this.renderSearchResults() }

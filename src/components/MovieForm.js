@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import config from '../constants';
 
-
 import Header from './Header';
 import MovieSelect from './MovieSelect';
 
@@ -53,9 +52,7 @@ class MovieForm extends Component {
     )
   }
   getSharedReccomendations(a,b){
-
     const matches = [];
-    console.log(a, b);
     a.forEach((e1) => b.forEach((e2) => {
       if( JSON.stringify(e1) === JSON.stringify(e2)) {
         matches.push(e1);
@@ -67,10 +64,20 @@ class MovieForm extends Component {
       matches.push(a[0])
       matches.push(b[0])
     }
-
     return matches
   }
-
+  _reset = event => {
+    event.preventDefault();
+    this.setState({
+      selectedMovieA: null,
+      selectedMovieB: null,
+      recommendationsA: [],
+      recommendationsB: [],
+      RecommendedMovie: null
+    })
+    const headerPanel = document.querySelector("header");
+    headerPanel.scrollIntoView();
+  }
   recommend() {
     console.log("analyzing..")
 
@@ -110,6 +117,7 @@ class MovieForm extends Component {
           placeholder={"Pick a Movie"}
           setMovieChoice={ this.setMovieChoiceA }
           setRecommendations={ this.setRecommendationsA }
+          selectedMovie={ this.state.selectedMovieA }
           containerClass={"moviePicker container container-red"}
           />
         </div>
@@ -119,12 +127,16 @@ class MovieForm extends Component {
           placeholder={"Pick another Movie"}
           setMovieChoice={ this.setMovieChoiceB }
           setRecommendations={ this.setRecommendationsB }
+          selectedMovie={ this.state.selectedMovieB }
           containerClass={"moviePicker container container-cyan"}
           />
         </div>
         <div className="panel" id="recommendation">
           <div className="container">
             { this.state.RecommendedMovie !== null ? this.renderRecommendation(): this.loadingRecommendation() }
+            <div className="reset-container">
+              <button type="button" class="reset-button" onClick={ (event) => { this._reset(event)} }>Reset</button>
+            </div>
           </div>
         </div>
       </form>
