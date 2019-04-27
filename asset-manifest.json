@@ -1,13 +1,13 @@
 {
-  "main.css": "/moviemashup/static/css/main.2c704f7c.chunk.css",
-  "main.js": "/moviemashup/static/js/main.5ba7ce10.chunk.js",
-  "main.js.map": "/moviemashup/static/js/main.5ba7ce10.chunk.js.map",
+  "main.css": "/moviemashup/static/css/main.0b8686bc.chunk.css",
+  "main.js": "/moviemashup/static/js/main.dc3ebb48.chunk.js",
+  "main.js.map": "/moviemashup/static/js/main.dc3ebb48.chunk.js.map",
   "runtime~main.js": "/moviemashup/static/js/runtime~main.137b64d4.js",
   "runtime~main.js.map": "/moviemashup/static/js/runtime~main.137b64d4.js.map",
   "static/js/2.33593e4f.chunk.js": "/moviemashup/static/js/2.33593e4f.chunk.js",
   "static/js/2.33593e4f.chunk.js.map": "/moviemashup/static/js/2.33593e4f.chunk.js.map",
   "index.html": "/moviemashup/index.html",
-  "precache-manifest.aa035ba3ccefd23222a7da08a882cebe.js": "/moviemashup/precache-manifest.aa035ba3ccefd23222a7da08a882cebe.js",
+  "precache-manifest.f5166a14343b538e566fbde2ad0bf5dc.js": "/moviemashup/precache-manifest.f5166a14343b538e566fbde2ad0bf5dc.js",
   "service-worker.js": "/moviemashup/service-worker.js",
-  "static/css/main.2c704f7c.chunk.css.map": "/moviemashup/static/css/main.2c704f7c.chunk.css.map"
+  "static/css/main.0b8686bc.chunk.css.map": "/moviemashup/static/css/main.0b8686bc.chunk.css.map"
 }
