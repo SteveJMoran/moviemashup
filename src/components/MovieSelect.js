@@ -15,6 +15,7 @@ class MovieSelect extends Component {
 
     this.state = { 
       q: '',
+      _searches:null,
       results:[],
     };
     this.fetchSelectedMovie = this.fetchSelectedMovie.bind(this);
@@ -52,7 +53,7 @@ class MovieSelect extends Component {
       const movieId = selectedId[0].dataset.value
       
       this.fetchSelectedMovie(movieId)
-      this.fetchRecomendations(movieId)
+      this.fetchRecommendations(movieId)
     }
   }
   autocompleteSearch = q => {
@@ -102,7 +103,7 @@ class MovieSelect extends Component {
       console.error(e.message)
     }
   }
-  async fetchRecomendations(id, page) {
+  async fetchRecommendations(id, page) {
     try {
       const url = `${config.API_URL}/movie/${id}/recommendations`;
       page = page !== null ? page : 1;
@@ -120,13 +121,13 @@ class MovieSelect extends Component {
       }
       // get the first two pages of recommendations
       // TODO Find a better way to get both
-      const recomendationData = await axios.get(url, {params: params})
-      const recomendationData2 = await axios.get(url, {params: params2})
-      const { results:recomendations1 } = recomendationData.data;
-      const { results:recomendations2 } = recomendationData2.data;
-      const recomendations = [...recomendations1,...recomendations2];
+      const recommendationData = await axios.get(url, {params: params})
+      const recommendationData2 = await axios.get(url, {params: params2})
+      const { results:recommendations1 } = recommendationData.data;
+      const { results:recommendations2 } = recommendationData2.data;
+      const recommendations = [...recommendations1,...recommendations2];
 
-      this.props.setRecommendations(recomendations)
+      this.props.setRecommendations(recommendations)
   
     } catch(e) {
       console.error(e.message)
