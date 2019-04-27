@@ -1,5 +1,5 @@
 {
-  "main.css": "/moviemashup/static/css/main.a8367bcf.chunk.css",
+  "main.css": "/moviemashup/static/css/main.63f70ca7.chunk.css",
   "main.js": "/moviemashup/static/js/main.109fd5eb.chunk.js",
   "main.js.map": "/moviemashup/static/js/main.109fd5eb.chunk.js.map",
   "runtime~main.js": "/moviemashup/static/js/runtime~main.137b64d4.js",
@@ -7,7 +7,7 @@
   "static/js/2.33593e4f.chunk.js": "/moviemashup/static/js/2.33593e4f.chunk.js",
   "static/js/2.33593e4f.chunk.js.map": "/moviemashup/static/js/2.33593e4f.chunk.js.map",
   "index.html": "/moviemashup/index.html",
-  "precache-manifest.ac2e292be08914728b5056cf8180ef8d.js": "/moviemashup/precache-manifest.ac2e292be08914728b5056cf8180ef8d.js",
+  "precache-manifest.fa01ae6f8826ec5ed85ad4ce38988f56.js": "/moviemashup/precache-manifest.fa01ae6f8826ec5ed85ad4ce38988f56.js",
   "service-worker.js": "/moviemashup/service-worker.js",
-  "static/css/main.a8367bcf.chunk.css.map": "/moviemashup/static/css/main.a8367bcf.chunk.css.map"
+  "static/css/main.63f70ca7.chunk.css.map": "/moviemashup/static/css/main.63f70ca7.chunk.css.map"
 }

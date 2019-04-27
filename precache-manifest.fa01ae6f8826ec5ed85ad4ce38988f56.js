@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/moviemashup/static/js/runtime~main.137b64d4.js"
   },
   {
-    "revision": "2b8adce1d2e419f2b5f1",
+    "revision": "d24f58898ff4ec976f0a",
     "url": "/moviemashup/static/js/main.109fd5eb.chunk.js"
   },
   {
@@ -12,11 +12,11 @@ self.__precacheManifest = [
     "url": "/moviemashup/static/js/2.33593e4f.chunk.js"
   },
   {
-    "revision": "2b8adce1d2e419f2b5f1",
-    "url": "/moviemashup/static/css/main.a8367bcf.chunk.css"
+    "revision": "d24f58898ff4ec976f0a",
+    "url": "/moviemashup/static/css/main.63f70ca7.chunk.css"
   },
   {
-    "revision": "08ff6a918186e909379217cdf486c97f",
+    "revision": "48fa0615ad6642a70dad3b006c4321ef",
     "url": "/moviemashup/index.html"
   }
 ];
