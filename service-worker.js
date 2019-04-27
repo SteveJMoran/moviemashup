@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/SteveJMoran/moviemashup/precache-manifest.3a5035ed551bcba9b7eaf511aedcd994.js"
+  "/moviemashup/precache-manifest.aa035ba3ccefd23222a7da08a882cebe.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/SteveJMoran/moviemashup/index.html", {
+workbox.routing.registerNavigationRoute("/moviemashup/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
