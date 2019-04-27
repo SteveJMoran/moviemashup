@@ -6,6 +6,7 @@
   box-sizing: border-box;
   &.panel-half {
     height: 50vh;
+    min-height: 300px;
   }
 }
 .container {

@@ -1,13 +1,17 @@
 html {
   scroll-behavior: smooth;
 }
+// body {
+//   overflow: hidden;
+// }
 header {
   text-align: center;
   h1 {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+    padding: 15px;
     font-family: 'Permanent Marker', cursive;
     color: rgba($cyan, 0.75);
-    font-size: 108px;
+    font-size: 68px;
     text-align: center;
   }
   p {
@@ -15,6 +19,7 @@ header {
     font-weight: 600;
     color: $black;
     margin: 1em 0 60px;
+    padding: 15px;
   }
 }
 .start-button {
@@ -30,4 +35,16 @@ header {
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media(min-width: 813px){
+  header h1 {
+    font-size: 98px;
+    margin-bottom: 30px
+  }
+}
+@media(min-width: 1200px){
+  header h1 {
+    font-size: 108px;
+  }
 }

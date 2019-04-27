@@ -12,7 +12,7 @@
     color: #FFF;
     border:none;
     border-bottom: 2px solid #FFF;
-    font-size: 42px;
+    font-size: 24px;
     text-align: center;
 
     &::placeholder {
@@ -26,5 +26,11 @@
   }
   .selected-poster {
     margin: 20px auto;
+  }
+}
+
+@media(min-width: 600px){
+  .moviePicker input {
+    font-size: 48px;
   }
 }
