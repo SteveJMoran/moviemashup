@@ -16,9 +16,10 @@ class MovieSelect extends Component {
     this.state = { 
       q: null,
       selected: null,
+      recomendations:[],
       results:[]
     };
-
+    this.fetchSelectedMovie = this.fetchSelectedMovie.bind(this);
   }
   changeQuery = event => {
     this.handleSelect(event)
@@ -58,20 +59,16 @@ class MovieSelect extends Component {
     })
     if(selectedId.length){
       const movieId = selectedId[0].dataset.value
-
+      
       this.fetchSelectedMovie(movieId)
-        .then(function(res){
-          console.log(res)
-          this.setState({selected: res})
-          this.props.setMovieChoice(res)
-        })
-
       this.fetchRecomendations(movieId)
-        .then(function(res){
-          console.log(res)
-
-        })
     }
+  }
+  setSelected(selected){
+    this.setState({ selected })
+  }
+  setRecommendations(recomendations){
+    this.setState({ recomendations })
   }
   autocompleteSearch = q => {
     this.fetchMatches(q);
@@ -113,8 +110,8 @@ class MovieSelect extends Component {
       }
 
       const movieData = await axios.get(url, {params: params})
-      const { data:movie } = movieData;
-      return movie;
+      const { data:selected } = movieData;
+      this.setState({ selected })
 
     } catch(e) {
       console.error(e.message)
@@ -130,21 +127,20 @@ class MovieSelect extends Component {
       }
       const recomendationData = await axios.get(url, {params: params})
       const { data:recomendations } = recomendationData;
-      return recomendations;
+      this.setState({ recomendations})
 
     } catch(e) {
       console.error(e.message)
     }
   }
-  renderBlankPoster(){
-    return (<div className="blank-poster"></div>)
+  renderBlank(){
+    return ({'backgroundImage':'none'})
   }
-  renderSelectedMoviePoster(){
-    const { title, poster_path } = this.state.selected;
-    const posterImage = config.getPosterUrl(poster_path);
-    return (
-      <img className="selected-poster" src={ posterImage } alt={ title } />
-    )
+  renderBackground(){
+    const {backdrop_path } = this.state.selected;
+    const backgroundImage = config.getBackdropUrl(backdrop_path);
+    console.log(backgroundImage);
+    return ({'backgroundImage': `url(${backgroundImage})`})
   }
   renderSearchResults() {
     const { results } = this.state;
@@ -164,10 +160,8 @@ class MovieSelect extends Component {
   }
   render() {
     return (
-      <div className="moviePicker">
-        <div className="moviePoster">
-          { this.state.selected !== null ? this.renderSelectedMoviePoster() : this.renderBlankPoster() }
-        </div>
+      <div className={this.props.containerClass }>
+        <div className="background" style={ this.state.selected !== null ? this.renderBackground() : this.renderBlank() }></div>
         <input
           placeholder="Pick a movie"
           type="text"

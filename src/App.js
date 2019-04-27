@@ -4,7 +4,6 @@ import appConfig from './constants.js';
 
 import './App.scss';
 
-import Header from './components/Header';
 import MovieForm from './components/MovieForm';
 import Footer from './components/Footer';
 
@@ -31,11 +30,6 @@ class App extends Component {
   render() {
     return (
       <div>
-      <div className="container">
-        <Header />
-        <button className="start-button" href={"#"}>Start</button>
-      </div>
-
         <MovieForm />
         <Footer />
       </div>

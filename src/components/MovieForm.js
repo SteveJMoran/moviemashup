@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 // /import config from '../constants';
 
+
+import Header from './Header';
 import MovieSelect from './MovieSelect';
 
 class MovieForm extends Component {
@@ -39,54 +41,60 @@ class MovieForm extends Component {
       recommendationsB: movie
     })
   }
-  loadingRecomendation(){
+  loadingRecommendation(){
     return(
-      <div>Loading...</div>
+      <div className="loading-recommendation">Loading</div>
     )
   }
-  getSharedGenres(a,b){
+  // getSharedGenres(a,b){
 
-    let sharedGenres = [];
-    a.map(genre => {
-      const genreId = genre.id;
-      b.map(match => {
-        if(genreId === match.id){
-          sharedGenres.push(match);
-        }
-      })
-    })
-    return sharedGenres;
-  }
-  analyze(){
-    console.log("analyzing..")
-    const { selectedMovieA:movieA , selectedMovieB:movieB } = this.state;
+  //   let sharedGenres = [];
+  //   a.map(genre => {
+  //     const genreId = genre.id;
+  //     b.map(match => {
+  //       if(genreId === match.id){
+  //         sharedGenres.push(match);
+  //       }
+  //     })
+  //   })
+  //   return sharedGenres;
+  // }
+  // analyze(){
+  //   console.log("analyzing..")
+  //   const { selectedMovieA:movieA , selectedMovieB:movieB } = this.state;
 
-    const genres = this.getSharedGenres(movieA.genres, movieB.genres)
+  //   const genres = this.getSharedGenres(movieA.genres, movieB.genres)
 
-    console.log(genres)
-    console.log(movieA, movieB);
-  }
-  renderRecomendation(){
-    this.analyze();
-  }
+  //   console.log(genres)
+  //   console.log(movieA, movieB);
+  // }
+  // renderRecommendation(){
+  //   this.analyze();
+  // }
   render(){
     return(
       <form>
-        <div className="container">
+        <div className="panel">
+          <Header containerClass={"container"} />
+        </div>
+        <div className="panel panel-half">
           <MovieSelect
           id={1}
           setMovieChoice={ this.setMovieChoiceA }
-           />
+          containerClass={"moviePicker container container-red"}
+          />
         </div>
-        <div className="container">
-
+        <div className="panel panel-half">
           <MovieSelect
           id={2} 
           setMovieChoice={ this.setMovieChoiceB }
+          containerClass={"moviePicker container container-cyan"}
           />
         </div>
-        <div className="container">
-          { (this.state.selectedMovieA !== null && this.state.selectedMovieB !== null )? this.renderRecomendation(): this.loadingRecomendation() }
+        <div className="panel">
+          <div className="container">
+            { (this.state.selectedMovieA !== null && this.state.selectedMovieB !== null )? this.renderRecommendation(): this.loadingRecommendation() }
+          </div>
         </div>
       </form>
     )
