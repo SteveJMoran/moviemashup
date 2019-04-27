@@ -18,3 +18,6 @@ The Movie Database (TMDb) is a community built movie and TV database. Every piec
 
 This app uses [The Movie DB API](https://developers.themoviedb.org)
 
+### Demo
+
+See the demo [here](https://stevejmoran.github.io/moviemashup/)
