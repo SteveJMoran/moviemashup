@@ -32,11 +32,6 @@ class MovieSelect extends Component {
         }
       }
     )
-    if(event.target.value.length === 0){
-      this.setState({
-        selected: null
-      })
-    }
   }
   handleSelect = event => {
     const input = event.target
@@ -59,12 +54,6 @@ class MovieSelect extends Component {
       this.fetchSelectedMovie(movieId)
       this.fetchRecomendations(movieId)
     }
-  }
-  setSelected(selected){
-    this.setState({ selected })
-  }
-  setRecommendations(recomendations){
-    this.setState({ recomendations })
   }
   autocompleteSearch = q => {
     this.fetchMatches(q);
@@ -107,7 +96,6 @@ class MovieSelect extends Component {
 
       const movieData = await axios.get(url, {params: params})
       const { data:selected } = movieData;
-      // this.setState({ selected })
       this.props.setMovieChoice(selected)
 
     } catch(e) {
