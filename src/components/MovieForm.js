@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import config from '../constants';
+import { getPosterUrl } from './MovieApi';
 
 import Header from './Header';
 import MovieSelect from './MovieSelect';
@@ -93,7 +93,7 @@ class MovieForm extends Component {
     recommendationPanel.scrollIntoView();
 
     const movie = this.state.RecommendedMovie;
-    const posterUrl = config.getPosterUrl(movie.poster_path)
+    const posterUrl = getPosterUrl(movie.poster_path)
 
     return (
       <div className="result">
