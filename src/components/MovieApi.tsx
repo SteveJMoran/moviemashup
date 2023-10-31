@@ -1,4 +1,5 @@
-const API_TOKEN = process.env.REACT_APP_API_TOKEN;
+const API_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTlkNWE0YmVjMjJlNmM4MGVhZjUyMmE3NzIwYTVkMyIsInN1YiI6IjVjYThlOTZhMGUwYTI2NGM2OWYyNGU2YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nC3_Ngw44NUfxiat239wpSAKB4Xp3uDWVKNM4tH9uxE"; // FIXME get .env file working
+
 const API_URL = "https://api.themoviedb.org/3";
 
 export const posterSizes = [
@@ -61,7 +62,7 @@ export const getMovie = (id) => {
     .catch((err) => console.error("Movie Not Found:", err));
 };
 
-export const recommend = (id) => {
+export const getRecommendations = (id) => {
   const url = `${API_URL}/movie/${id}/recommendations`;
   const options = {
     method: "GET",

@@ -1,0 +1,278 @@
+@charset "UTF-8";
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url("https://fonts.googleapis.com/css?family=Permanent+Marker");
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+header {
+  text-align: center;
+}
+header h1 {
+  margin-bottom: 15px;
+  padding: 15px;
+  font-family: "Permanent Marker", cursive;
+  color: rgba(5, 172, 243, 0.75);
+  font-size: 68px;
+  text-align: center;
+}
+header p {
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: #0e0e0e;
+  margin: 1em 0 60px;
+  padding: 15px;
+}
+
+.start-button {
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  margin: 0 auto;
+  padding: 12px 40px;
+  font-size: 32px;
+  font-weight: 900;
+  color: #FFF;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(223, 17, 83, 0.9);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (min-width: 813px) {
+  header h1 {
+    font-size: 98px;
+    margin-bottom: 30px;
+  }
+}
+@media (min-width: 1200px) {
+  header h1 {
+    font-size: 108px;
+  }
+}
+footer {
+  padding: 6px;
+  background: #0e0e0e;
+  text-align: center;
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  color: #FFF;
+}
+
+.panel {
+  background-color: #0e0e0e;
+  height: 100vh;
+  width: 100%;
+  padding: 5% 5% 2.5% 5%;
+  box-sizing: border-box;
+}
+.panel.panel-half {
+  height: 50vh;
+  min-height: 300px;
+}
+
+.container {
+  position: relative;
+  background-color: #f4efd3;
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+.container.container-red {
+  background-color: rgba(223, 17, 83, 0.9);
+}
+.container.container-cyan {
+  background-color: rgba(5, 172, 243, 0.9);
+}
+.container .background {
+  opacity: 0.6;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.moviePicker {
+  position: relative;
+  text-align: center;
+  height: 100%;
+  overflow: hidden;
+}
+.moviePicker input {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  max-width: 90%;
+  background-color: transparent;
+  color: #FFF;
+  border: none;
+  border-bottom: 2px solid #FFF;
+  font-size: 24px;
+  text-align: center;
+}
+.moviePicker input::placeholder {
+  color: #FFF;
+}
+.moviePicker .blank-poster {
+  margin: 20px auto;
+  width: 185px;
+  height: 278px;
+}
+.moviePicker .selected-poster {
+  margin: 20px auto;
+}
+
+@media (min-width: 600px) {
+  .moviePicker input {
+    font-size: 48px;
+  }
+}
+.loading-recommendation {
+  font-family: "Permanent Marker", cursive;
+  color: rgba(14, 14, 14, 0.75);
+  font-size: 30px;
+  width: 140px;
+  margin: 0 auto;
+}
+.loading-recommendation::after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+  animation: ellipsis steps(4, end) 900ms infinite;
+  content: "…"; /* ascii code for the ellipsis character */
+  width: 0px;
+}
+
+.result {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.result h3 {
+  text-align: center;
+  font-family: "Permanent Marker", cursive;
+  font-size: 32px;
+  color: rgba(14, 14, 14, 0.75);
+  margin: 1em;
+}
+.result h2 {
+  margin: 1em 0 0;
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  text-align: center;
+}
+.result p {
+  max-width: 480px;
+  margin: 1em auto;
+  padding: 15px;
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: #0e0e0e;
+}
+.result img {
+  max-width: 160px;
+  margin: 0 auto;
+}
+
+#recommendation {
+  min-height: 700px;
+}
+
+.reset-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+}
+.reset-container .reset-button {
+  font-family: "Permanent Marker", cursive;
+  font-size: 18px;
+  line-height: 1;
+  background-color: transparent;
+  border: none;
+  color: rgba(14, 14, 14, 0.75);
+  cursor: pointer;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 1em;
+  }
+}
+@-webkit-keyframes ellipsis {
+  to {
+    width: 1em;
+  }
+}
