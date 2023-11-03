@@ -63,7 +63,10 @@ export const getMovie = (id) => {
 };
 
 export const getRecommendations = (id) => {
-  const url = `${API_URL}/movie/${id}/recommendations`;
+  const params = new URLSearchParams({
+    crossDomain: true,
+  });
+  const url = `${API_URL}/movie/${id}/recommendations?${params}`;
   const options = {
     method: "GET",
     headers: {

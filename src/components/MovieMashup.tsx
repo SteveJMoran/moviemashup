@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, StrictMode } from "react"
 import { Title } from "./Title";
 import { MovieSelect } from "./MovieSelect";
 import { Credits } from "./Credits";
@@ -9,6 +9,7 @@ type MovieMashupProps = {};
 
 export const MovieMashup = (props): Component<MovieMashupProps> => {
   const [recommendation, setRecommendation] = useState(undefined)
+  const [recommendations, setRecommendations] = useState([])
   const [selectedMovies, setSelections] = useState([undefined, undefined])
 
   const renderRecommendation = () => {
@@ -22,26 +23,36 @@ export const MovieMashup = (props): Component<MovieMashupProps> => {
       </div>
     )
   }
-  const recommend = async () => {
+  const recommend = () => {
     console.log("analyzing..")
-    console.log(selectedMovies)
-    const recoPool = [];
-    await selectedMovies.forEach((m) => {
-      console.log(m)
-      getRecommendations(m.id)
-        .then(results => recoPool.concat(results))
-    })
-
-    console.log(recoPool)
-
-    // get recomendations
+    const results = filterRecommendations(recommendations)
+    setRecommendation(results[0])
   }
+
+  const filterRecommendations = (rec:any[]) => {
+    const selectedIds = selectedMovies.map(m => m.id)
+    return rec.filter((value, index, self) =>
+      index === self.findIndex((t) => (
+        t.id === value.id 
+      ))
+    ).filter(movie => selectedIds.indexOf(movie.id) === -1 )
+  }
+
+  const updateRecommendations = (id:number) => {
+    getRecommendations(id)
+    .then(res => {
+      let updatedRecommendations = [...recommendations, ...res.results]
+      setRecommendations(updatedRecommendations)
+    })
+  }
+
   const resetForm = (e:Event) => {
     setRecommendation(undefined)
     setSelections([undefined, undefined])
   }
   
   return (
+    <StrictMode>
     <div>
       <Title />
       <form>
@@ -51,8 +62,8 @@ export const MovieMashup = (props): Component<MovieMashupProps> => {
             placeholder={"Pick a Movie"}
             selectedMovie={selectedMovies[0]}
             setMovieChoice={(movie) => {
-              console.log(movie)
               setSelections([movie, selectedMovies[1]])
+              updateRecommendations(movie.id)
             }}
           />
         </div>
@@ -64,6 +75,7 @@ export const MovieMashup = (props): Component<MovieMashupProps> => {
             selectedMovie={selectedMovies[1]}
             setMovieChoice={(movie) => {
               setSelections([selectedMovies[0], movie])
+              updateRecommendations(movie.id)
             }}
           />
         </div>
@@ -85,5 +97,6 @@ export const MovieMashup = (props): Component<MovieMashupProps> => {
       </form>
       <Credits />
     </div>
+    </StrictMode>
   );
 };

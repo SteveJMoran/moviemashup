@@ -9038,52 +9038,6 @@
     };
   }
 
-  /******************************************************************************
-  Copyright (c) Microsoft Corporation.
-
-  Permission to use, copy, modify, and/or distribute this software for any
-  purpose with or without fee is hereby granted.
-
-  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-  REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-  AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-  INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-  LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-  OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-  PERFORMANCE OF THIS SOFTWARE.
-  ***************************************************************************** */
-  function __awaiter(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function (resolve) {
-        resolve(value);
-      });
-    }
-    return new (P || (P = Promise))(function (resolve, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  }
-  typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
-    var e = new Error(message);
-    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-  };
-
   const Title = ({ scrollToRef }) => {
       return jsxRuntimeExports.jsx("div", { className: "panel", children: jsxRuntimeExports.jsxs("header", { className: "container", children: [jsxRuntimeExports.jsx("h1", { children: "Movie Mashup" }), jsxRuntimeExports.jsx("p", { children: "Pick two movies and Movie Mashup will recomend a movie based on your selections!" }), jsxRuntimeExports.jsx("a", { className: "start-button", href: "#selectOne", onClick: scrollToRef, children: "Start" })] }) });
   };
@@ -9272,7 +9226,10 @@
           .catch((err) => console.error("Movie Not Found:", err));
   };
   const getRecommendations = (id) => {
-      const url = `${API_URL}/movie/${id}/recommendations`;
+      const params = new URLSearchParams({
+          crossDomain: true,
+      });
+      const url = `${API_URL}/movie/${id}/recommendations?${params}`;
       const options = {
           method: "GET",
           headers: {
@@ -9329,37 +9286,43 @@
 
   const MovieMashup = (props) => {
       const [recommendation, setRecommendation] = reactExports.useState(undefined);
+      const [recommendations, setRecommendations] = reactExports.useState([]);
       const [selectedMovies, setSelections] = reactExports.useState([undefined, undefined]);
       const renderRecommendation = () => {
           //document.getElementById("recommendation").scrollIntoView();
           return (jsxRuntimeExports.jsxs("div", { className: "result", children: [jsxRuntimeExports.jsx("h3", { children: "You should watch:" }), jsxRuntimeExports.jsx("img", { src: getPosterUrl(recommendation.poster_path), alt: recommendation.title }), jsxRuntimeExports.jsx("h2", { children: recommendation.title }), jsxRuntimeExports.jsx("p", { children: recommendation.overview })] }));
       };
-      const recommend = () => __awaiter(void 0, void 0, void 0, function* () {
+      const recommend = () => {
           console.log("analyzing..");
-          console.log(selectedMovies);
-          const recoPool = [];
-          yield selectedMovies.forEach((m) => {
-              console.log(m);
-              getRecommendations(m.id)
-                  .then(results => recoPool.concat(results));
+          const results = filterRecommendations(recommendations);
+          setRecommendation(results[0]);
+      };
+      const filterRecommendations = (rec) => {
+          const selectedIds = selectedMovies.map(m => m.id);
+          return rec.filter((value, index, self) => index === self.findIndex((t) => (t.id === value.id))).filter(movie => selectedIds.indexOf(movie.id) === -1);
+      };
+      const updateRecommendations = (id) => {
+          getRecommendations(id)
+              .then(res => {
+              let updatedRecommendations = [...recommendations, ...res.results];
+              setRecommendations(updatedRecommendations);
           });
-          console.log(recoPool);
-          // get recomendations
-      });
+      };
       const resetForm = (e) => {
           setRecommendation(undefined);
           setSelections([undefined, undefined]);
       };
-      return (jsxRuntimeExports.jsxs("div", { children: [jsxRuntimeExports.jsx(Title, {}), jsxRuntimeExports.jsxs("form", { children: [jsxRuntimeExports.jsx("div", { className: "panel panel-half", id: "selectOne", children: jsxRuntimeExports.jsx(MovieSelect, { id: 1, placeholder: "Pick a Movie", selectedMovie: selectedMovies[0], setMovieChoice: (movie) => {
-                                  console.log(movie);
-                                  setSelections([movie, selectedMovies[1]]);
-                              } }) }), jsxRuntimeExports.jsx("button", { onClick: recommend, children: "Recommend" }), jsxRuntimeExports.jsx("div", { className: "panel panel-half", children: jsxRuntimeExports.jsx(MovieSelect, { id: 2, placeholder: "Pick another Movie", selectedMovie: selectedMovies[1], setMovieChoice: (movie) => {
-                                  setSelections([selectedMovies[0], movie]);
-                              } }) }), jsxRuntimeExports.jsx("div", { className: "panel", id: "recommendation", children: jsxRuntimeExports.jsxs("div", { className: "container", children: [recommendation
-                                      ? renderRecommendation()
-                                      : jsxRuntimeExports.jsx("div", { className: "loading-recommendation", children: "Loading" }), jsxRuntimeExports.jsx("div", { className: "reset-container", children: jsxRuntimeExports.jsx("button", { type: "button", className: "reset-button", onClick: (event) => {
-                                              resetForm();
-                                          }, children: "Reset" }) })] }) })] }), jsxRuntimeExports.jsx(Credits, {})] }));
+      return (jsxRuntimeExports.jsx(reactExports.StrictMode, { children: jsxRuntimeExports.jsxs("div", { children: [jsxRuntimeExports.jsx(Title, {}), jsxRuntimeExports.jsxs("form", { children: [jsxRuntimeExports.jsx("div", { className: "panel panel-half", id: "selectOne", children: jsxRuntimeExports.jsx(MovieSelect, { id: 1, placeholder: "Pick a Movie", selectedMovie: selectedMovies[0], setMovieChoice: (movie) => {
+                                      setSelections([movie, selectedMovies[1]]);
+                                      updateRecommendations(movie.id);
+                                  } }) }), jsxRuntimeExports.jsx("button", { onClick: recommend, children: "Recommend" }), jsxRuntimeExports.jsx("div", { className: "panel panel-half", children: jsxRuntimeExports.jsx(MovieSelect, { id: 2, placeholder: "Pick another Movie", selectedMovie: selectedMovies[1], setMovieChoice: (movie) => {
+                                      setSelections([selectedMovies[0], movie]);
+                                      updateRecommendations(movie.id);
+                                  } }) }), jsxRuntimeExports.jsx("div", { className: "panel", id: "recommendation", children: jsxRuntimeExports.jsxs("div", { className: "container", children: [recommendation
+                                          ? renderRecommendation()
+                                          : jsxRuntimeExports.jsx("div", { className: "loading-recommendation", children: "Loading" }), jsxRuntimeExports.jsx("div", { className: "reset-container", children: jsxRuntimeExports.jsx("button", { type: "button", className: "reset-button", onClick: (event) => {
+                                                  resetForm();
+                                              }, children: "Reset" }) })] }) })] }), jsxRuntimeExports.jsx(Credits, {})] }) }));
   };
 
   const container = document.getElementById('root');
