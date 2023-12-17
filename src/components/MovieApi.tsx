@@ -1,4 +1,3 @@
-const API_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTlkNWE0YmVjMjJlNmM4MGVhZjUyMmE3NzIwYTVkMyIsInN1YiI6IjVjYThlOTZhMGUwYTI2NGM2OWYyNGU2YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nC3_Ngw44NUfxiat239wpSAKB4Xp3uDWVKNM4tH9uxE"; // FIXME get .env file working
 
 const API_URL = "https://api.themoviedb.org/3";
 

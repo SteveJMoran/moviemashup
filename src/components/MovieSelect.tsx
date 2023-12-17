@@ -57,6 +57,7 @@ export const MovieSelect = ({id, placeholder, selectedMovie, setMovieChoice, set
         list={autoCompleteid}
         onChange={updateQuery}
         value={query}
+        name="movie-select"
       />
       <datalist className="movieAutocomplete" id={autoCompleteid}>
         {results.length > 0 ? results.map((result) => {
