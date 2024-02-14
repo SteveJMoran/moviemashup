@@ -4,9 +4,12 @@
   "private": true,
   "homepage": "https://stevejmoran.github.io/moviemashup/",
   "dependencies": {
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
     "gh-pages": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rollup-plugin-dotenv": "^0.5.0",
     "sass": "^1.69.4",
     "throttle-debounce": "^2.1.0"
   },

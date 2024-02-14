@@ -1,6 +1,3 @@
-
-const API_URL = "https://api.themoviedb.org/3";
-
 export const posterSizes = [
   "w92",
   "w154",
@@ -26,16 +23,17 @@ export function getBackdropUrl(filename) {
 }
 
 export const searchMovies = (q) => {
-  const params = new URLSearchParams({
-    query: q,
-    page: 1,
-  });
-  const url = `${API_URL}/search/movie?${params}`;
+  const args: Record<string, string> = {
+    "query": q,
+    "page": "1",
+  }
+  const params = new URLSearchParams(args);
+  const url = `${process.env.API_URL}/search/movie?${params}`;
   const options = {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${API_TOKEN}`,
+      Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
     },
   };
   return fetch(url, options)
@@ -44,15 +42,16 @@ export const searchMovies = (q) => {
 };
 
 export const getMovie = (id) => {
-  const params = new URLSearchParams({
-    crossDomain: true,
-  });
-  const url = `${API_URL}/movie/${id}?${params}`;
+  const args:Record<string, string> = {
+    "crossDomain": "true",
+  }
+  const params = new URLSearchParams(args);
+  const url = `${process.env.API_URL}/movie/${id}?${params}`;
   const options = {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${API_TOKEN}`,
+      Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
     },
   };
 
@@ -62,15 +61,16 @@ export const getMovie = (id) => {
 };
 
 export const getRecommendations = (id) => {
-  const params = new URLSearchParams({
-    crossDomain: true,
-  });
-  const url = `${API_URL}/movie/${id}/recommendations?${params}`;
+  const args:Record<string, string> = {
+    "crossDomain": "true",
+  }
+  const params = new URLSearchParams(args);
+  const url = `${process.env.API_URL}/movie/${id}/recommendations?${params}`;
   const options = {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${API_TOKEN}`,
+      Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
     },
   };
   return fetch(url, options)

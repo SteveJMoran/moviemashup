@@ -6,6 +6,7 @@ import typescript from '@rollup/plugin-typescript';
 import babel from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
 import scss from "rollup-plugin-scss";
+import dotenv from "rollup-plugin-dotenv"
 // `npm run build` -> `production` is true
 // `npm run dev` -> `production` is false
 const production = !process.env.ROLLUP_WATCH;
@@ -21,6 +22,7 @@ const options = {
     plugins: [
         typescript({ "jsx": "react-jsx", "allowImportingTsExtensions": true, "noEmit": true,"target": "es6"  }),
         resolve(), // tells Rollup how to find date-fns in node_modules
+        dotenv(),
         nodeResolve({
             extensions: [".tsx"],
         }),
